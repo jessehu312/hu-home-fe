@@ -3,6 +3,7 @@ import firebaseClient from "firebase/app";
 import "firebase/auth";
 import { FirebaseAuthProvider } from '@react-firebase/auth';
 import Loading from '../components/Loading';
+import Radar from 'radar-sdk-js';
 
 const ConfigContext = createContext({
   config: null,
@@ -14,8 +15,10 @@ export function ConfigProvider({ children }) {
   useEffect(() => {
     return fetch('/api/client-config')
     .then(resp => resp.json())
-    .then(config => {
-      setConfig({firebaseConfig: config, firebaseClient: firebaseClient});
+    .then(({firebase, radar}) => {
+      const radarClient = Radar;
+      radarClient.initialize(radar);
+      setConfig({firebaseConfig: firebase, firebaseClient, radarClient});
     })
   }, []);
 
