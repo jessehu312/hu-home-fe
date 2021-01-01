@@ -7,9 +7,7 @@ function App() {
   return (
     <ConfigProvider>
       <FirebaseAuthConsumer>
-      {({ isSignedIn, ...values}) => 
-        isSignedIn ? <Main {...values}/> : <Login/>
-      }
+      {({ isSignedIn, ...values}) => isSignedIn ? <Main {...values}/> : <Login/>}
       </FirebaseAuthConsumer>
     </ConfigProvider>
   );
