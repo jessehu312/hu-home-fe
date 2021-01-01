@@ -7,7 +7,7 @@ const UserContext = createContext({
 
 export function UserProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
-  const { config: {firebaseClient} } = useConfig();
+  const { config: {firebaseClient, radarClient} } = useConfig();
 
   useEffect(() => {
     return firebaseClient.auth().currentUser.getIdToken(/* forceRefresh */ true)
@@ -24,7 +24,24 @@ export function UserProvider({ children }) {
     })
     .then(resp => resp.json())
     .then(currentUser => {
-      setCurrentUser(currentUser);
+      setCurrentUser({ firebase: currentUser});
+      const { uid, email } = currentUser
+      radarClient.setUserId(uid);
+      radarClient.setMetadata({email, uid});
+      radarClient.setDescription('this is a user');
+      return new Promise((resolve, reject)=> {
+        radarClient.trackOnce((err, result) => err ? reject(err) : resolve(result));
+      })
+    })
+    .then(radar => {
+      setCurrentUser({...currentUser, radar});
+      const { location: { latitude, longitude }} = radar;
+      return new Promise((resolve, reject)=>{
+        radarClient.reverseGeocode((err, result) => err ? reject(err) : resolve(result));
+      })
+    })
+    .then(reverseGeocode => {
+      setCurrentUser({...currentUser, reverseGeocode});
     })
     .catch(function(error) {
       console.error(error)
