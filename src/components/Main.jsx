@@ -2,8 +2,10 @@ import { useConfig } from '../context/ConfigProvider';
 import { UserProvider, useCurrentUser } from '../context/UserProvider';
 
 const UserData = () => {
-  const { currentUser } = useCurrentUser();
-  return (<p>{JSON.stringify(currentUser, null, 2)}</p>)
+  const { currentUser, location, locationDetails, debug } = useCurrentUser();
+  return (<div>
+    {[currentUser, location, locationDetails, debug].map((detail, idx) => <p key={idx}>{JSON.stringify(detail, null, 2)}</p>)}
+    </div>)
 }
 
 const Main = ({ user, providerId }) => {

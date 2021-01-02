@@ -3,53 +3,58 @@ import { useConfig } from '../context/ConfigProvider';
 
 const UserContext = createContext({
   currentUser: null,
+  location: null,
+  locationDetails: null,
+  debug: null
 });
 
 export function UserProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
+  const [location, setLocation] = useState(null);
+  const [locationDetails, setLcationDetails] = useState(null);
+  const [debug, setDebug] = useState(null);
   const { config: {firebaseClient, radarClient} } = useConfig();
 
   useEffect(() => {
     return firebaseClient.auth().currentUser.getIdToken(/* forceRefresh */ true)
-    .then((idToken) => {
-      return fetch(
-        '/api/get-user', 
-        {
-          method: 'post', 
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          }, 
-          body: JSON.stringify({token: idToken})})
-    })
+    .then((idToken) => fetch(
+      '/api/get-user', 
+      {
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${idToken}`
+        }
+      }
+    ))
     .then(resp => resp.json())
-    .then(currentUser => {
-      setCurrentUser({ firebase: currentUser});
-      const { uid, email } = currentUser
-      radarClient.setUserId(uid);
-      radarClient.setMetadata({email, uid});
-      radarClient.setDescription('this is a user');
+    .then(({debug, profile}) => {
+      setCurrentUser(profile);
+      setDebug(debug);
+      const { id, email } = profile.me
+      radarClient.setUserId(id);
+      radarClient.setMetadata(profile.me);
+      radarClient.setDescription(email);
       return new Promise((resolve, reject)=> {
         radarClient.trackOnce((err, result) => err ? reject(err) : resolve(result));
       })
     })
     .then(radar => {
-      setCurrentUser({...currentUser, radar});
+      setLocation(radar);
       const { location: { latitude, longitude }} = radar;
       return new Promise((resolve, reject)=>{
-        radarClient.reverseGeocode((err, result) => err ? reject(err) : resolve(result));
+        radarClient.reverseGeocode({latitude, longitude}, (err, result) => err ? reject(err) : resolve(result));
       })
     })
     .then(reverseGeocode => {
-      setCurrentUser({...currentUser, reverseGeocode});
+      setLcationDetails(reverseGeocode);
     })
     .catch(function(error) {
       console.error(error)
     });
   }, []);
 
-  return currentUser ? (
-    <UserContext.Provider value={{ currentUser }}>{children}</UserContext.Provider>
+  return currentUser || location || locationDetails || debug ? (
+    <UserContext.Provider value={{ currentUser, location, locationDetails, debug }}>{children}</UserContext.Provider>
   ) : <div>Loading...</div>;
 }
 
