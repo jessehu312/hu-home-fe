@@ -11,7 +11,7 @@ const UserContext = createContext({
 export function UserProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
   const [location, setLocation] = useState(null);
-  const [locationDetails, setLcationDetails] = useState(null);
+  const [locationDetails, setLocationDetails] = useState(null);
   const [debug, setDebug] = useState(null);
   const { config: {firebaseClient, radarClient} } = useConfig();
 
@@ -46,7 +46,7 @@ export function UserProvider({ children }) {
       })
     })
     .then(reverseGeocode => {
-      setLcationDetails(reverseGeocode);
+      setLocationDetails(reverseGeocode);
     })
     .catch(function(error) {
       console.error(error)
