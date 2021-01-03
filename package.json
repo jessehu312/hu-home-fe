@@ -1,5 +1,6 @@
 {
   "name": "hu-home-fe",
+  "author": "Jesse Hu",
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:5000",
