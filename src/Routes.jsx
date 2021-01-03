@@ -7,8 +7,7 @@ import { UserProvider, useCurrentUser } from './context/UserProvider';
 
 const CheckRegister = (props) => {
   const { currentUser } = useCurrentUser();
-  return currentUser.family ? <Main {...props}/> : <Register currentUser={currentUser.me} {...props}/>;
-  
+  return currentUser.family ? <Main {...props}/> : <Register currentUser={currentUser.me} {...props}/>;  
 }
 
 const Routes = () => {

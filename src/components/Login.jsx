@@ -3,7 +3,6 @@ import { useConfig } from '../context/ConfigProvider';
 import Button from './Button';
 import './Login.css';
 import logo from './home.png';
-import { BrowserRouter as Link } from "react-router-dom";
 
 const Login = (_) => {
   const { config: { firebaseClient } } = useConfig();
@@ -37,11 +36,9 @@ const Login = (_) => {
           Forgot Password?
         </a>
       </div>
-      <Link to= "./Register">
-        <Button onClick={ async () => { await firebaseClient.auth().createUserWithEmailAndPassword(email, pass);}} primary>
-          Sign Up
-        </Button>
-      </Link>
+      <Button onClick={ async () => { await firebaseClient.auth().createUserWithEmailAndPassword(email, pass);}} primary>
+        Sign Up
+      </Button>
       <Button onClick={ async () => { 
         await firebaseClient.auth().signInWithEmailAndPassword(email, pass);
         }} secondary>
