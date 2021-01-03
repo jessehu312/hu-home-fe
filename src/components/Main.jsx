@@ -13,7 +13,7 @@ const UserData = () => {
 const Main = ({ user, providerId }) => {
   const { config: { firebaseClient } } = useConfig();
   return (
-    <div>
+    <div className="container">
       <button onClick={async () => { await firebaseClient.auth().signOut(); }}>Sign out</button>
       <pre style={{ overflow: "auto" }}>{JSON.stringify({ user, providerId }, null, 2)}</pre>
       <UserProvider>
