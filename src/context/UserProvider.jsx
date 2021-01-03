@@ -53,7 +53,7 @@ export function UserProvider({ children }) {
     });
   }, []);
 
-  return currentUser || location || locationDetails || debug ? (
+  return (currentUser && location && locationDetails && debug) ? (
     <UserContext.Provider value={{ currentUser, location, locationDetails, debug }}>{children}</UserContext.Provider>
   ) : <div>Loading...</div>;
 }
