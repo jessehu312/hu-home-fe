@@ -53,4 +53,9 @@ img.arrows {
   font-size: 16px;
   float: left;
   margin-left: 25px;
+  margin-bottom: 24px;
+}
+
+.home.homeList {
+  background-color: green;
 }
