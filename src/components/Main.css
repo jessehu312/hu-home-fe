@@ -1,0 +1,47 @@
+.navheaderMain {
+  position: relative;
+  width: 375px;
+  height: 215px;
+  background-color:#03002E;
+}
+
+.iconButton {
+  position: relative;
+  background-color: #FFFFFF;
+  border-radius: 5px;
+  width: 305px;
+  height: 61px;
+  text-align: center;
+  color: #03002E;
+  font-family: Nunito;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 27px;
+  margin: auto;
+}
+
+.iconButton:hover {
+  background-color: #EEEEEE;
+}
+
+button.logout {
+  position: relative;
+  margin-top: 75px;
+}
+
+.iconButton p {
+  text-align: center;
+  color: #03002E;
+  display: inline;
+  line-height: 46px;
+}
+
+img.icons {
+  float: left;
+}
+
+img.arrows {
+  float: right;
+  margin-top: 5px;
+}
