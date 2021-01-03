@@ -1,26 +1,23 @@
 import { useConfig } from '../context/ConfigProvider';
-import { UserProvider, useCurrentUser } from '../context/UserProvider';
+import { useCurrentUser } from '../context/UserProvider';
 import { EventProvider, useEvent } from '../context/EventProvider';
 import "./Main.css";
-import MainButton from './MainButton.jsx';
+import MainButton from './MainButton';
+import Roster from './Roster';
 import AccIcon from '../AccountIcon.png';
 import ConIcon from '../ContactIcon.png';
 import SetIcon from '../SettingsIcon.png';
 
-const UserData = () => {
-  const { currentUser, location, locationDetails, debug } = useCurrentUser();
-  const { familyList } = useEvent();
-  return (<div>
-    {[currentUser, familyList, location, locationDetails, debug].map((detail, idx) => <p key={idx}>{JSON.stringify(detail, null, 2)}</p>)}
-    </div>)
-}
-
 const Main = ({ user, providerId }) => {
   const { config: { firebaseClient } } = useConfig();
+  const { currentUser } = useCurrentUser();
   return (
     <div className="container"> 
       <div className="navheaderMain">
         <h1>Currently Home:</h1>
+        <EventProvider>
+          <Roster {...currentUser}/>
+        </EventProvider>
       </div>
       <MainButton icon={AccIcon}>
         Manage Addresses

@@ -45,3 +45,12 @@ img.arrows {
   float: right;
   margin-top: 5px;
 }
+
+.homeList {
+  border-radius: 5px;
+  width: 150px;
+  height: 34px;
+  font-size: 16px;
+  float: left;
+  margin-left: 25px;
+}

@@ -1,0 +1,16 @@
+.loadScreen {
+  position: absolute;
+  font-size: 56px;
+  margin: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.loadLogo {
+  position: absolute;
+  margin: auto;
+  top: 36%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext, createContext } from "react";
 import { useConfig } from '../context/ConfigProvider';
+import Loading from '../components/Loading.jsx';
 
 const UserContext = createContext({
   currentUser: null,
@@ -61,7 +62,7 @@ export function UserProvider({ children }) {
 
   return (currentUser && location && locationDetails && debug) ? (
     <UserContext.Provider value={{ currentUser, location, locationDetails, debug }}>{children}</UserContext.Provider>
-  ) : <div>Loading...</div>;
+  ) : <Loading />
 }
 
 export const useCurrentUser = () => {
