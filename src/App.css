@@ -41,3 +41,14 @@
     transform: rotate(360deg);
   }
 }
+
+.container { 
+  font-family:'Nunito';
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 375px;
+  height: 667px;
+  background-color: #3A396F;
+  padding-bottom: 32px;
+}
