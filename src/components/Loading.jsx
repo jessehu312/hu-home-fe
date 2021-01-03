@@ -3,7 +3,7 @@ import "../components/loading.css";
 
 const Loading = (props) => {
   return (
-    <div>
+    <div className="container">
       <img src={logo} width="96px" height="96px" className="loadLogo"/>
       <p className="loadScreen">Loading...</p>
     </div>
