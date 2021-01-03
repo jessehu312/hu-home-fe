@@ -10,13 +10,13 @@ import SetIcon from '../SettingsIcon.png';
 
 const Main = ({ user, providerId }) => {
   const { config: { firebaseClient } } = useConfig();
-  const { currentUser } = useCurrentUser();
+  const { currentUser, location } = useCurrentUser();
   return (
     <div className="container"> 
       <div className="navheaderMain">
         <h1>Currently Home:</h1>
         <EventProvider>
-          <Roster {...currentUser}/>
+          <Roster {...currentUser} user={location.user}/>
         </EventProvider>
       </div>
       <MainButton icon={AccIcon}>
