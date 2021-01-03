@@ -1,20 +1,13 @@
-import logo from '../logo.svg';
-import '../App.css';
+import logo from "./home.png";
+import "../components/loading.css";
 
-export default function Loading() {
-return (<div className="App">
-  <header className="App-header">
-    <img src={logo} className="App-logo" alt="logo" />
-    <p>
-      Edit <code>src/App.js</code> and save to reload.
-  </p>
-    <a
-      className="App-link"
-      href="https://reactjs.org"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      Learn React
-  </a>
-  </header>
-</div>)};
+const Loading = (props) => {
+  return (
+    <div className="container">
+      <img src={logo} width="96px" height="96px" className="loadLogo"/>
+      <p className="loadScreen">Loading...</p>
+    </div>
+  );
+}
+
+export default Loading;
