@@ -50,6 +50,12 @@ export function UserProvider({ children }) {
     })
     .catch(function(error) {
       console.error(error)
+
+      console.info('Did Radar.io ratelimit us? fallback to browser location')
+      navigator.geolocation.getCurrentPosition(pos => {
+        setLocation({location: pos});
+        setLocationDetails({addresses: [location]});
+      });
     });
   }, []);
 
