@@ -5,8 +5,7 @@ import Button from "./Button";
 import { useCurrentUser } from '../context/UserProvider';
 
 const Save = (name, phone, city, zip, address, location, locationDetails, firebaseClient) => {
-  const longitude = locationDetails.addresses[0].longitude;
-  const latitude = locationDetails.addresses[0].latitude;
+  const {latitude, longitude } = location.location;
   const country = locationDetails.addresses[0].country;
   return firebaseClient.auth().currentUser.getIdToken(/* forceRefresh */ true)
     .then((idToken) => fetch(
@@ -20,7 +19,8 @@ const Save = (name, phone, city, zip, address, location, locationDetails, fireba
         },
         body: JSON.stringify({name, phone, city, zip, address, country, longitude, latitude})
       }
-  ))
+    ))
+    .then(_=>window.location.href = '/')
 }
 
 const Register = (props) => {
